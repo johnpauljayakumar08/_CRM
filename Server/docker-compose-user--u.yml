@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  backend:
+    image: krishnapriyap/aonbackend:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - MYSQL_HOST=172.24.0.2
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=rootpassword
+      - MYSQL_DATABASE=testdb
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    depends_on:
+      - mysql
+    networks:
+      - my_network
+
+  frontend:
+    image: krishnapriyap/aonfrontend:latest
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
+    networks:
+      - my_network
+
+  mysql:
+    image: krishnapriyap/mern-mysql:latest
+    restart: always
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: testdb
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - my_network
+
+  code-server:
+    image: krishnapriyap/aoncodeserver:latest
+    environment:
+      - PASSWORD=test
+    ports:
+      - "8081:8080"
+    command: ["code-server", "--config", "/home/coder/.config/code-server/config.yaml"]
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
+
+volumes:
+  mysql-data:
+  user_workspace_-u:
+    driver: local

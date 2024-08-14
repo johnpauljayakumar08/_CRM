@@ -1,0 +1,12 @@
+.bgcolorset{
+    background-color: white;
+}
+.bgcolorglass{
+    background-color: #33225e94;
+    color: #fff;
+    
+    margin-top: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 3%;
+}

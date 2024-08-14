@@ -1,0 +1,2 @@
+name,employed_id,employed_phone_number,email_id,password,head_name,role_id
+john,12345,9994736580,johnpaul@gmail.com,john@123,admin,1
